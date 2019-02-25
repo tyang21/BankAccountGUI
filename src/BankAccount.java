@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -5,6 +7,7 @@ import javax.swing.JTextField;
 
 public class BankAccount extends JFrame
 {
+	private ArrayList<BankAccount> bankAccounts = new ArrayList<BankAccount>();
 	public BankAccount()
 	{
 		setBounds(100,100,500,200);
@@ -22,9 +25,20 @@ public class BankAccount extends JFrame
 		acc.setBounds(100, 100, 100, 100);
 		add(acc);
 		
-		JComboBox account = new JComboBox();
+		
+		JComboBox account = new JComboBox(new String[]{"", "Checking Account", "Savings Account"});
+		account.setBounds(100, 100, 100, 100);
+		add(account);
+		
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//JBalanceText =
 		
 		
-		
+	}
+	public static void main(String[] args)
+	{
+		BankAccount myFrame = new BankAccount(); 
 	}
 }
