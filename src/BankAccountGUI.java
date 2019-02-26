@@ -10,49 +10,69 @@ import javax.swing.JTextField;
 
 public class BankAccountGUI extends JFrame
 {
-	private ArrayList<BankAccountGUI> bankAccounts = new ArrayList<BankAccountGUI>();
+	private ArrayList<BankAccount> bankAccounts = new ArrayList<BankAccount>();
 	public BankAccountGUI()
 	{
-		setBounds(100,100,500,200);
+		setBounds(100,100,500,500);
 		setLayout(null);
 		
 		JLabel name = new JLabel("Name:");
-		name.setBounds(50, 50, 25, 125);
+		name.setBounds(50, 50, 150, 25);
 		add(name);
 		
 		JTextField nameField = new JTextField();
-		nameField.setBounds(50, 75, 25, 100);
+		nameField.setBounds(200, 50, 150, 25);
 		add(nameField);
 		
 		JLabel acc = new JLabel("Account Type");
-		acc.setBounds(100, 100, 100, 100);
+		acc.setBounds(50, 75, 150, 25);
 		add(acc);
 		
-		
 		JComboBox account = new JComboBox(new String[]{"", "Checking Account", "Savings Account"});
-		account.setBounds(100, 100, 100, 100);
+		account.setBounds(200, 75, 150, 25);
 		add(account);
-		
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+	
 		JLabel balance = new JLabel("Initial Balance: ");
-		balance.setBounds(100, 100, 100, 100);
+		balance.setBounds(50, 100, 150, 25);
 		add(balance);
 		
 		JTextField balanceField = new JTextField();
-		balanceField.setBounds(100, 100, 100, 100);
+		balanceField.setBounds(200, 100, 150, 25);
 		add(balanceField);
 		
 		JButton createAccount = new JButton("Create Account");
-		createAccount.setBounds(100, 100, 100, 100);
-		createAccount.addActionListener(new ActionListener()
+		createAccount.setBounds(50, 125, 100, 100);
+		createAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(account.getSelectedItem().equals("Checking Account"))
 				{
-					public void actionPerformed(ActionEvent e)
-					{
-						//we did the mantha mash
-					}
-				});
+					bankAccounts.add(new CheckingAccount(nameField.getText(), Double.parseDouble(balanceField.getText()),0,0,0));
+				}
+				else
+				{
+					bankAccounts.add(new SavingsAccount(nameField.getText(), Double.parseDouble(balanceField.getText()),0,0));
+				}
+				nameField.setText("");
+				balanceField.setText("");
+				account.setSelectedIndex(0);
+			}
+		});
+		add(createAccount);
+		
+		JButton displayAccount = new JButton("Display Accounts");
+		displayAccount.setBounds(150, 125, 100, 100);
+		displayAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(BankAccount a : bankAccounts)
+				{
+					System.out.println(a);
+				}
+			}
+		});
+		add(displayAccount);
+		
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 	}
